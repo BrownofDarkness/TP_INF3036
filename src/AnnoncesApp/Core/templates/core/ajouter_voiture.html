@@ -19,9 +19,12 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
     {{form|crispy}}
-    {% for photo_form in form.photos %}
+    {% comment %} {% for photo_form in form.photos %}
         {{ photo_form|crispy }}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
+
+    <input type="file" name="photos" id="photos" required multiple>
+    
     <div id="image-preview" class="d-flex flex-wrap"></div>
     <div class="flex justify-content-sm-between align-items-center">
         <input type="reset" class="btn btn-danger"/>
