@@ -1,11 +1,18 @@
 from django.utils.html import format_html
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+class User(AbstractUser):
+
+
+    phone_1 = models.CharField(max_length=20)
+    phone_2 = models.CharField(max_length=20)
+    address = models.CharField(max_length=255)
+    class Meta(AbstractUser.Meta):
+        pass
+    
 
 class Marque(models.Model):
     nom = models.CharField(max_length=100, unique=True)

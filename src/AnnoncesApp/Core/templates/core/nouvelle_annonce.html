@@ -19,9 +19,8 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
     {{form|crispy}}
-    {% comment %} {% for photo_form in form.photos %}
-        {{ photo_form|crispy }}
-    {% endfor %} {% endcomment %}
+    <h1>Voiture</h1>
+    {{form.voiture|crispy}}
     <div id="div_id_photo" class="mb-3">
         <label class="form-label required" for="photos">Photos</label>
         <input type="file" class="form-control" name="photos" id="photos" accept="image/*" required multiple>
@@ -39,7 +38,7 @@
 
 {% block script %}
 <script>
-    const imageInput = document.getElementById('id_form-0-photo')
+    const imageInput = document.getElementById('photos')
     const imagePreview = document.getElementById('image-preview');
     imageInput.addEventListener('change', function() {
         imagePreview.innerHTML = ''; // Effacer les aperçus précédents

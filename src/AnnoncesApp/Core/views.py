@@ -7,20 +7,14 @@ from django.core.files.images import ImageFile
 
 from.models import PhotoVoiture
 
-from django.views.generic import CreateView,ListView,DetailView,UpdateView,DeleteView
+from django.core.files.images import ImageFile
 # from django.views
 
-from .forms import VoitureForm, PhotoForm
+from .forms import VoitureForm,NewAnnonceForm
+from .models import Voiture,PhotoVoiture,Annonce
+
+
 # Create your views here.
-
-def create_voiture(request,*args,**kwargs):
-    template_name = 'core/ajouter_voiture.html'
-    context = {}
-
-    form = VoitureForm()
-    context['form'] =form
-
-    return render(request,template_name,context)
 
 
 class CreateVoiture(View):
@@ -37,22 +31,44 @@ class CreateVoiture(View):
             voiture = form.save()
             images = request.FILES.getlist('photos')
             for image_file in images:
-                # buffer = BytesIO()
-                # for chunk in image_file.chunks():
-                #     buffer.write(chunk)
-
-                # buffer.seek(0)
-
-                # uploaded_image = InMemoryUploadedFile(
-                #     buffer,
-                #     'ImageField',  # Nom du champ de l'image
-                #     image_file.name,  # Nom du fichier d'origine
-                #     image_file.content_type,  # Type de contenu
-                #     buffer.tell(),  # Taille du fichier
-                #     None  # Charset (optionnel)
-                # )
                 image = PhotoVoiture.objects.create(voiture = voiture, photo = ImageFile(image_file))
                 print(image.voiture)
             form = self.form_class()
             """return redirect('')"""
         return render(request, self.template_name, {'form': form})
+
+
+
+class NewAnnonceView(View):
+    context = {}
+    template_name = 'core/nouvelle_annonce.html'
+    def get(self,request,*args,**kwargs):
+
+        form = NewAnnonceForm()
+
+        self.context['form'] = form
+
+        return render(request,self.template_name,self.context)
+    
+    def post(self,request,*args,**kwargs):
+
+        form = NewAnnonceForm(request.POST)
+        voiture_form = VoitureForm(request.POST)
+        if form.is_valid():
+            voiture_form.is_valid()
+            # print(form.cleaned_data['voiture'])
+            # voiture_data = validated_annonce.pop('voiture',None)
+
+            voiture = voiture_form.save()
+
+            if voiture:
+                images = request.FILES.getlist('photos')
+                for image_file in images:
+                    image = PhotoVoiture.objects.create(voiture = voiture, photo = ImageFile(image_file))
+                    print(image.voiture)
+            annonce = form.save(commit=False)
+            annonce.voiture = voiture
+            annonce.save()
+        self.context['form'] = form
+        
+        return render(request,self.template_name,self.context)

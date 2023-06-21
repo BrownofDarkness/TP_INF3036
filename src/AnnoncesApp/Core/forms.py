@@ -92,3 +92,12 @@ class ImageVoitureForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ImageVoitureForm, self).__init__(*args, **kwargs)
         self.fields["image"].widget.attrs.update({"class": "form-control-file"})
+
+VoitureFormSet = formset_factory(VoitureForm,extra=1)
+
+class NewAnnonceForm(forms.ModelForm):
+    voiture = VoitureForm()
+    class Meta:
+        model = Annonce
+        # fields = "__all__"  # Inclure tous les champs du modèle AnnonceForm dans le formulaire
+        exclude = ('voiture',)

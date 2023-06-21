@@ -55,6 +55,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "AnnoncesApp.urls"
 
+AUTH_USER_MODEL="Core.User"
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
