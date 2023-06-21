@@ -51,10 +51,10 @@ class VoitureForm(forms.ModelForm):
 
     class Meta:
         model = Voiture
-        # fields = (
-        #     "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
-        # )
-        exclude = ("proprietaire",)
+        fields = (
+            "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
+        )
+        # exclude = ("proprietaire",)
 
     def save(self, commit: bool = True) -> Any:
         voiture = super().save(commit=commit)

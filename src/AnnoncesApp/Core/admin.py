@@ -12,14 +12,14 @@ class MarqueAdmin(admin.ModelAdmin):
 
 @admin.register(Modele)
 class ModeleAdmin(admin.ModelAdmin):
-    list_display = ("id", "nom")
-    search_fields = ("nom",)
+    list_display = ("id", "nom",'marque')
+    search_fields = ("nom",'marque__nom',)
 
 
 @admin.register(Voiture)
 class VoitureAdmin(admin.ModelAdmin):
     list_display = ("id", "model", "prix", "annee", "description", "proprietaire")
-    search_fields = ("model__nom", "marque__nom", "annee", "prix")
+    search_fields = ("model__nom","model__marque__nom", "annee", "prix")
     list_filter = ("annee", "model", "prix")
 
 

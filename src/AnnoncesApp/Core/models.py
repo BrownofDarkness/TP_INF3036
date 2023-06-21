@@ -16,6 +16,7 @@ class Marque(models.Model):
 
 class Modele(models.Model):
     nom = models.CharField(max_length=100, unique=True)
+    marque = models.ForeignKey(Marque, on_delete=models.CASCADE, related_name="models")
     def __str__(self) -> str:
         return self.nom
 
@@ -26,7 +27,6 @@ class Voiture(models.Model):
     description = models.TextField()
     num_chassi = models.CharField(max_length=255)
     model = models.ForeignKey(Modele, on_delete=models.CASCADE, related_name="voitures")
-    marque = models.ForeignKey(Marque, on_delete=models.CASCADE, related_name="voitures")
     proprietaire = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="annonces"
     )
