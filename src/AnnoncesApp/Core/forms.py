@@ -1,7 +1,9 @@
 from typing import Any
 from django import forms
+from io import BytesIO
 from django.forms.models import inlineformset_factory
 from django.forms import formset_factory
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from .models import Marque, Modele, Voiture, Annonce, PhotoVoiture
 
 
@@ -33,21 +35,22 @@ class ModeleForm(forms.ModelForm):
 class PhotoForm(forms.ModelForm):
     class Meta:
         model = PhotoVoiture
-        fields = ["photo"]
-        widgets = {
-            "photo": forms.ClearableFileInput(
-                attrs={"multiple": True, "class": "form-control"}
-            )
-        }
+        fields = ["photo","voiture"]
 
 
-VoiturePhotoFormSet = formset_factory(PhotoForm, extra=1)
+# VoiturePhotoFormSet = formset_factory(PhotoForm, extra=1)
 
 # Formulaire des Voiture
 
 
 class VoitureForm(forms.ModelForm):
-    photos = VoiturePhotoFormSet()
+    # photos = VoiturePhotoFormSet()
+    # photo = forms.ImageField(required=True, label='',widget=forms.ClearableFileInput(
+    #     attrs={
+    #         "multiple": True,
+    #         "class": "form-control",
+    #     }
+    # ))
 
     class Meta:
         model = Voiture
@@ -58,10 +61,9 @@ class VoitureForm(forms.ModelForm):
 
     def save(self, commit: bool = True) -> Any:
         voiture = super().save(commit=commit)
-        if commit:
-            for form in self.cleaned_data["photos"]:
-                image = form.cleaned_data[""]
-
+        return voiture
+            
+             
 
 # Formulaire des Annonce
 

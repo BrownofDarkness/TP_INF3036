@@ -62,7 +62,7 @@ class PhotoVoiture(models.Model):
     )
 
     def photo_preview(self):
-        if self.image:
+        if self.photo:
             return format_html(
                 f"<img src='{self.photo.url}' width='400px' heigth='400px' class='rounded float-right' />"
             )
@@ -70,4 +70,4 @@ class PhotoVoiture(models.Model):
         return None
 
     def __str__(self):
-        return f"Image de {self.voiture.modele.marque} {self.voiture.modele} ({self.voiture.annee})"
+        return f"Image de {self.voiture.model.marque} {self.voiture.model} ({self.voiture.annee})"
