@@ -1,6 +1,8 @@
+from typing import Any
 from django import forms
 from django.forms.models import inlineformset_factory
-from .models import Marque, Modele, Voiture, Annonce, ImageVoiture
+from django.forms import formset_factory
+from .models import Marque, Modele, Voiture, Annonce, PhotoVoiture
 
 
 # Forumulaire des user
@@ -28,16 +30,37 @@ class ModeleForm(forms.ModelForm):
         )
 
 
+class PhotoForm(forms.ModelForm):
+    class Meta:
+        model = PhotoVoiture
+        fields = ["photo"]
+        widgets = {
+            "photo": forms.ClearableFileInput(
+                attrs={"multiple": True, "class": "form-control"}
+            )
+        }
+
+
+VoiturePhotoFormSet = formset_factory(PhotoForm, extra=1)
+
 # Formulaire des Voiture
 
 
 class VoitureForm(forms.ModelForm):
+    photos = VoiturePhotoFormSet()
+
     class Meta:
         model = Voiture
-        fields = (
-            "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
-        )
+        # fields = (
+        #     "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
+        # )
         exclude = ("proprietaire",)
+
+    def save(self, commit: bool = True) -> Any:
+        voiture = super().save(commit=commit)
+        if commit:
+            for form in self.cleaned_data["photos"]:
+                image = form.cleaned_data[""]
 
 
 # Formulaire des Annonce
@@ -56,12 +79,12 @@ class AnnonceForm(forms.ModelForm):
 
 # Formulaires des ImageVoiture
 
-ImageVoitureFormSet = inlineformset_factory(Voiture, ImageVoiture, fields=("image",))
+ImageVoitureFormSet = inlineformset_factory(Voiture, PhotoVoiture, fields=("photo",))
 
 
 class ImageVoitureForm(forms.ModelForm):
     class Meta:
-        model = ImageVoiture
+        model = PhotoVoiture
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,59 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+
+{% block styles %}
+    <style>
+        .preview-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin-right: 10px;
+            margin-bottom: 10px;
+          }
+    </style>
+{% endblock styles %}
+
+{% block content %} 
+
+<div style="max-width:500px">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    {{form|crispy}}
+    {% for photo_form in form.photos %}
+        {{ photo_form|crispy }}
+    {% endfor %}
+    <div id="image-preview" class="d-flex flex-wrap"></div>
+    <div class="flex justify-content-sm-between align-items-center">
+        <input type="reset" class="btn btn-danger"/>
+        <input type="submit" class="btn btn-success"/>
+    </div>
+    </form>
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    const imageInput = document.getElementById('id_form-0-photo')
+    const imagePreview = document.getElementById('image-preview');
+    imageInput.addEventListener('change', function() {
+        imagePreview.innerHTML = ''; // Effacer les aperçus précédents
+    
+        const files = imageInput.files;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const reader = new FileReader();
+    
+          reader.onload = function(event) {
+            const imgElement = document.createElement('img');
+            imgElement.src = event.target.result;
+            imgElement.classList.add('preview-image');
+            imgElement.classList.add('preview-image', 'd-inline-block', 'img-fluid');
+            imagePreview.appendChild(imgElement);
+          };
+    
+          reader.readAsDataURL(file);
+        }
+      });
+</script>
+{% endblock script %}

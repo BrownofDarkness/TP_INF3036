@@ -55,8 +55,8 @@ class Annonce(models.Model):
         return self.titre
 
 
-class ImageVoiture(models.Model):
-    image = models.ImageField(upload_to="voitures/")
+class PhotoVoiture(models.Model):
+    photo = models.ImageField(upload_to="voitures/")
     voiture = models.ForeignKey(
         Voiture, on_delete=models.CASCADE, related_name="images"
     )

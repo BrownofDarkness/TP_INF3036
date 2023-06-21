@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Voiture, Annonce, ImageVoiture, Marque, Modele
+from .models import Voiture, Annonce, PhotoVoiture, Marque, Modele
 
 # Register your models here.
 
@@ -23,9 +23,9 @@ class VoitureAdmin(admin.ModelAdmin):
     list_filter = ("annee", "model", "prix")
 
 
-@admin.register(ImageVoiture)
-class ImageVoiture(admin.ModelAdmin):
-    list_display = ("id", "image", "photo_preview")
+@admin.register(PhotoVoiture)
+class PhotoVoiture(admin.ModelAdmin):
+    list_display = ("id", "photo", "photo_preview")
 
     readonly_fields = ["photo_preview"]
 
