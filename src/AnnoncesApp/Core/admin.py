@@ -35,6 +35,11 @@ class ModeleInlineAdmin(admin.TabularInline):
     extra = 0
     
 
+class MarqueInlineAdmin(admin.TabularInline):
+    model = Marque
+    extra = 0
+    
+
 @admin.register(Marque)
 class MarqueAdmin(admin.ModelAdmin):
     list_display = ("id", "nom")
