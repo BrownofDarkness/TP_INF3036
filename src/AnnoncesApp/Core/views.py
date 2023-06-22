@@ -175,12 +175,12 @@ class AnnoncesListView(View):
     
     def get (self, request, *args, **kwargs):
         queries = Annonce.objects.filter(status = 'validé')
-<<<<<<< HEAD
         annee = request.GET.get('annee',None)
         prix =  request.GET.get('prix',None)
         marque = requests.GET.get('marque',None)
         model = request.GET.get('model',None)
         titre = request.GET.get('titre',None)
+        km = request.GET.get('km_parcouru',None)
 
         if titre:
             queries = queries.filter(titre=titre)
@@ -192,8 +192,9 @@ class AnnoncesListView(View):
             queries = queries.filter(voiture__model__marque__nom__icontains=marque)
         if model:
             queries = queries.filter(voiture__model__nom__icontains=model)
+        if km:
+            queries = queries.filter(voiture__km_parcouru=int(km))
         
-=======
         
         search = self.request.GET.get('search')
         if search:
@@ -201,7 +202,6 @@ class AnnoncesListView(View):
                 queries = Annonce.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
             else:
                 queries = Annonce.objects.none()
->>>>>>> b7a3d5c89f2698b68bcf542212cf9e40dfa90ce0
         context = {
             'annonces': queries,
         }
