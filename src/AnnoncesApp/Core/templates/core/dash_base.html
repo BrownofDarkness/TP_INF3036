@@ -19,13 +19,42 @@
     {% endblock styles %}
 
     <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
   </head>
 
   <body>
     <!-- bloc pour le contenu du la page -->
-    {% block content %} 
+    <div class="all">
+        <div class="sidebar">
+           <div class="tof">
+            <img src="{% static 'img/téléchargement (6).jpg' %}" alt="">
+           </div>
+            <ul>
 
-    {% endblock content %} 
+                <li>
+                    <a href="{% url 'dashboard_home' %}">Mes Annonces</a>
+                    <hr>
+                </li>
+    
+                <li>
+                    <a href="{% url 'new_annonce' %}">Nouvelle annonce</a>
+                   <hr>
+                </li>
+              
+                    <li>
+                        <a href="carhave.html">modifier</a>
+                        <hr>
+                    </li>
+               
+            </ul>
+        </div>
+        <main>
+            {% block content %} 
+
+            {% endblock content %} 
+            
+        </main>
+    </div>
 
     <!-- bloc pour le script de la page  si nécessaire -->
     {% block script %} 

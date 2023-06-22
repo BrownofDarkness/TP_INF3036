@@ -12,10 +12,60 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class UserRegisterForm(UserCreationForm):
-
-    class Meta(UserCreationForm.Meta):
+    username = forms.CharField(label="", widget=forms.TextInput(
+            attrs={
+                "placeholder": "username"
+            }
+        ))
+        
+    first_name = forms.CharField(label="", widget=forms.TextInput(
+        attrs={
+            "placeholder": "first_name"
+        }
+    ))
+    
+    last_name = forms.CharField(label="", widget=forms.TextInput(
+        attrs={
+            "placeholder": "last_name"
+        }
+    ))
+    
+    email = forms.CharField(label="", widget=forms.EmailInput(
+        attrs={
+            "placeholder": "example@gmail.com"
+        }
+    ))
+    
+    address = forms.CharField(label="", widget=forms.TextInput(
+        attrs={
+            "placeholder": "your address"
+        }
+    ))
+    
+    phone_1 = forms.CharField(label="phone_1", widget=forms.NumberInput(
+        attrs={
+            "placeholder": "your first number"
+        }
+    ))
+    phone_2 = forms.CharField(label="phone_2", widget=forms.NumberInput(
+        attrs={
+            "placeholder": "your second number"
+        }
+    ))
+    password1 = forms.CharField(label="", widget=forms.PasswordInput(
+        attrs={
+            "placeholder": "password"
+        }
+    ))
+    
+    password2 = forms.CharField(label="", widget=forms.PasswordInput(
+        attrs={
+            "placeholder": "confirm password"
+        }
+    ))
+    class Meta(UserChangeForm.Meta):
         model = User
-        fields = ['username','first_name','last_name','email','phone_1','phone_2','address']
+        fields = ['username','first_name','last_name','email','phone_1','phone_2','address','password1','password2']
 
 class UserUpdateForm(UserChangeForm):
 
@@ -64,18 +114,50 @@ class VoitureForm(forms.ModelForm):
     #         "class": "form-control",
     #     }
     # ))
+    
+    # annee = forms.CharField(label="", widget=forms.NumberInput(
+    #         attrs={
+    #             "placeholder": "annee de fabrication"
+    #         }
+    #     ))
+        
+    # prix = forms.CharField(label="", widget=forms.NumberInput(
+    #     attrs={
+    #         "placeholder": "prix_voiture"
+    #     }
+    # ))
+    
+    # description = forms.CharField(label="", widget=forms.Textarea(
+    #     attrs={
+    #         "placeholder": "description_voiture"
+    #     }
+    # ))
+    
+    # num_chassi = forms.CharField(label="", widget=forms.TextInput(
+    #     attrs={
+    #         "placeholder": "numero chassi"
+    #     }
+    # ))
+    
+    # km_parcouru = forms.CharField(label="", widget=forms.NumberInput(
+    #     attrs={
+    #         "placeholder": "Km parcouru"
+    #     }
+    # ))
+    
+    # model = forms.ChoiceField(label="",choices=[(m.id, m.nom) for m in Modele.objects.all()] , widget=forms.Select(
+    #     attrs={
+    #         "name": "model"
+    #     }
+    # ))
 
     class Meta:
         model = Voiture
-        # fields = (
-        #     "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
-        # )
+        fields = (
+            "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
+        )
         exclude = ("proprietaire",)
 
-    def save(self,user, commit: bool = True) -> Any:
-        form = self.cleaned_data
-        voiture = Voiture.objects.create(proprietaire = user,**form)
-        return voiture
             
              
 
@@ -111,6 +193,24 @@ class ImageVoitureForm(forms.ModelForm):
 VoitureFormSet = formset_factory(VoitureForm,extra=1)
 
 class NewAnnonceForm(forms.ModelForm):
+        
+    # prix = forms.CharField(label="", widget=forms.NumberInput(
+    #     attrs={
+    #         "placeholder": "prix_annonce"
+    #     }
+    # ))
+    
+    # description = forms.CharField(label="", widget=forms.Textarea(
+    #     attrs={
+    #         "placeholder": "description_annonce"
+    #     }
+    # ))
+    
+    # titre = forms.ChoiceField(label="",widget=forms.TextInput(
+    #     attrs={
+    #         "placeholder": "Titre"
+    #     }
+    # ))
     voiture = VoitureForm()
     class Meta:
         model = Annonce

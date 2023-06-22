@@ -96,4 +96,4 @@ class PhotoVoiture(models.Model):
         return None
 
     def __str__(self):
-        return f"Image de {self.voiture.modele.marque} {self.voiture.model} ({self.voiture.annee})"
+        return f"Image de {self.voiture.model.marque} {self.voiture.model} ({self.voiture.annee})"

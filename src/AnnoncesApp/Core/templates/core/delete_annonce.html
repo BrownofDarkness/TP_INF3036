@@ -9,34 +9,29 @@
 {% endblock styles %}
 
 {% block content %} 
-
- <!-- ======= Top Bar ======= -->
+<!-- ======= Top Bar ======= -->
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-cente">
 
-        <img src="./assets/img/car.jpg" alt="">
-
-        <div class="liens">
-            <a href="{% url 'home' %}">Home</a>
-            <a href="connexion.html">Sign In</a>
-        </div>
+        <img src="{% static 'img/car.jpg' %}" alt="">
 
     </header><!-- End Header -->
     <main>
-        <div class="main1">
-            
-            <div class="formu">
+        <div class="main">
+            <div class="title1">
+                <h2>Voulez-vous vraiment supprimer? l'annonce : {{annonce.title}}</h2>
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form.as_p}}
-                    
-                    <button type = "submit">Register</button>
+                    <button type="submit">confirmer</button>
                 </form>
+                
+                <button><a href="{% url 'dashboard_home' %}">Annuler</a></button>
+            </div>
+          
             </div>
 
         </div>
     </main>
-
 
 {% endblock content %}
 
