@@ -10,7 +10,7 @@ from.models import PhotoVoiture
 from django.core.files.images import ImageFile
 # from django.views
 
-from .forms import VoitureForm,NewAnnonceForm
+from .forms import VoitureForm,NewAnnonceForm, AnnonceForm
 from .models import Voiture,PhotoVoiture,Annonce
 
 
@@ -38,6 +38,25 @@ class CreateVoiture(View):
         return render(request, self.template_name, {'form': form})
 
 
+class AnnonceOtherView(View):
+    template_name = "core/other_annonce.html"
+    form_class = AnnonceForm
+    context = {}
+    
+    def get(self,request, *args, **kwargs):
+        form = self.form_class()
+        self.context["form"] = form
+        return render(request, self.template_name, self.context)
+    
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            form = self.form_class()
+            """return redirect('')"""
+        self.context["form"] = form
+        return render(request, self.template_name, self.context)
+    
 
 class NewAnnonceView(View):
     context = {}
@@ -140,3 +159,6 @@ class DropAnnonceView(View):
             'annonce': annonce,
         }
         return render(request, self.template_name, context)
+    
+    
+
