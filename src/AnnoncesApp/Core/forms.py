@@ -52,13 +52,14 @@ class VoitureForm(forms.ModelForm):
 
     class Meta:
         model = Voiture
-        fields = (
-            "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
-        )
-        # exclude = ("proprietaire",)
+        # fields = (
+        #     "__all__"  # Inclure tous les champs du modèle Voiture dans le formulaire
+        # )
+        exclude = ("proprietaire",)
 
-    def save(self, commit: bool = True) -> Any:
-        voiture = super().save(commit=commit)
+    def save(self,user, commit: bool = True) -> Any:
+        form = self.cleaned_data
+        voiture = Voiture.objects.create(proprietaire = user,**form)
         return voiture
             
              
@@ -69,7 +70,8 @@ class VoitureForm(forms.ModelForm):
 class AnnonceForm(forms.ModelForm):
     class Meta:
         model = Annonce
-        fields = "__all__"  # Inclure tous les champs du modèle AnnonceForm dans le formulaire
+        # fields = "__all__"  # Inclure tous les champs du modèle AnnonceForm dans le formulaire
+        exclude = ("status",)
 
     def __init__(self, user=None, *args, **kwargs):
         super(AnnonceForm, self).__init__(*args, **kwargs)
@@ -98,4 +100,4 @@ class NewAnnonceForm(forms.ModelForm):
     class Meta:
         model = Annonce
         # fields = "__all__"  # Inclure tous les champs du modèle AnnonceForm dans le formulaire
-        exclude = ('voiture',)
+        exclude = ('voiture',"status")

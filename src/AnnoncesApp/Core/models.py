@@ -51,7 +51,7 @@ class Annonce(models.Model):
 
     titre = models.CharField(max_length=255)
     description = models.TextField()
-    status = models.CharField(max_length=255, choices=STATUTS, default=STATUTS[0])
+    status = models.CharField(max_length=255, choices=STATUTS, default='en attente')
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     voiture = models.ForeignKey(
         Voiture, on_delete=models.CASCADE, related_name="annonces"

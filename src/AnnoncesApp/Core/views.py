@@ -1,5 +1,5 @@
 import random
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
 
@@ -42,9 +42,11 @@ class CreateVoiture(View):
 class NewAnnonceView(View):
     context = {}
     template_name = 'core/nouvelle_annonce.html'
+    form_class = NewAnnonceForm
+    
     def get(self,request,*args,**kwargs):
 
-        form = NewAnnonceForm()
+        form = self.form_class()
 
         self.context['form'] = form
 
@@ -52,14 +54,14 @@ class NewAnnonceView(View):
     
     def post(self,request,*args,**kwargs):
 
-        form = NewAnnonceForm(request.POST)
+        form = self.form_class(request.POST)
         voiture_form = VoitureForm(request.POST)
         if form.is_valid():
             voiture_form.is_valid()
             # print(form.cleaned_data['voiture'])
             # voiture_data = validated_annonce.pop('voiture',None)
 
-            voiture = voiture_form.save()
+            voiture = voiture_form.save(user = request.user)
 
             if voiture:
                 images = request.FILES.getlist('photos')
@@ -69,7 +71,7 @@ class NewAnnonceView(View):
             annonce = form.save(commit=False)
             annonce.voiture = voiture
             annonce.save()
-        self.context['form'] = form
+        self.context['form'] = self.form_class()
         
         return render(request,self.template_name,self.context)
 
@@ -78,7 +80,7 @@ class HomeView(View):
     template_name = "core/home.html"
     
     def get (self, request, *args, **kwargs):
-        queries = list(Annonce.objects.valid())
+        queries = list(Annonce.objects.filter(status = 'validé'))
         random.shuffle(queries)
         queries = queries[:4]
         context = {
@@ -90,7 +92,7 @@ class AnnoncesListView(View):
     template_name = "core/annonces.html"
     
     def get (self, request, *args, **kwargs):
-        queries = Annonce.objects.all()
+        queries = Annonce.objects.filter(status = 'validé')
         context = {
             'annonces': queries,
         }
@@ -106,5 +108,35 @@ class AnnoncesDetailView(View):
         context = {
             'annonce': annonce,
             'same_category': same_category,
+        }
+        return render(request, self.template_name, context)
+    
+class ValidateAnnonceView(View):
+    
+    def post (self, request, pk, *args, **kwargs):
+        annonce = Annonce.objects.get(pk = pk)
+        if annonce:
+            annonce.status = "validé"
+            annonce.save()
+            return redirect("dashboard")
+    
+class DropAnnonceView(View):
+    template_name = "core/refused.html"
+    
+    def get (self, request, pk, *args, **kwargs):
+        annonce = Annonce.objects.get(pk = pk)
+        context = {
+            'annonce': annonce,
+        }
+        return render(request, self.template_name, context)
+    
+    def post (self, request, pk, *args, **kwargs):
+        annonce = Annonce.objects.get(pk = pk)
+        if annonce:
+            annonce.delete()
+            return redirect("home")
+        
+        context = {
+            'annonce': annonce,
         }
         return render(request, self.template_name, context)
