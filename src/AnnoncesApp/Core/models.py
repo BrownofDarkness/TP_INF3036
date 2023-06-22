@@ -32,7 +32,7 @@ class Modele(models.Model):
 
 class Voiture(models.Model):
 
-                
+
     annee = models.IntegerField()
     prix = models.DecimalField(max_digits=10, decimal_places=2,help_text="in XAF")
     description = models.TextField()
@@ -50,7 +50,8 @@ class Voiture(models.Model):
         if image:
             if image.photo:
                 return image.photo.url
-            return
+            return ''
+        return ''
 
     @property
     def km(self):
