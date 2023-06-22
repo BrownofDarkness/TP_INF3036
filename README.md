@@ -10,7 +10,7 @@ Comment executer l'application :
   ```bash
   python -m venv env
   ```
-  
+
 - activer l'environment virtuelle
   
   Sur linux
@@ -62,3 +62,7 @@ Comment executer l'application :
     ```bash
     python manage.py runserver
     ```
+
+- L'application web serait disponible sur `http://localhost:8000`
+
+- La page admin sur `http://localhost:8000/admin`
