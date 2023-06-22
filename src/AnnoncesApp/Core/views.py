@@ -250,12 +250,9 @@ class DropAnnonceView(View):
         }
         return render(request, self.template_name, context)
     
-<<<<<<< HEAD
-=======
     
 class dashbordHome(View):
     template_name = "dashbord/index.html"
     
     def get(self, request, *args, **kwargs):
         pass
->>>>>>> b7a3d5c89f2698b68bcf542212cf9e40dfa90ce0
