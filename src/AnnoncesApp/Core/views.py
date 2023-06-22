@@ -1,7 +1,7 @@
+import random
 from django.shortcuts import render
 from django.views import View
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.db.models import Q
 
 from django.core.files.images import ImageFile
 
@@ -72,3 +72,39 @@ class NewAnnonceView(View):
         self.context['form'] = form
         
         return render(request,self.template_name,self.context)
+
+
+class HomeView(View):
+    template_name = "core/home.html"
+    
+    def get (self, request, *args, **kwargs):
+        queries = list(Annonce.objects.valid())
+        random.shuffle(queries)
+        queries = queries[:4]
+        context = {
+            'annonces': queries,
+        }
+        return render(request, self.template_name, context)
+    
+class AnnoncesListView(View):
+    template_name = "core/annonces.html"
+    
+    def get (self, request, *args, **kwargs):
+        queries = Annonce.objects.all()
+        context = {
+            'annonces': queries,
+        }
+        return render(request, self.template_name, context)
+    
+class AnnoncesDetailView(View):
+    template_name = "core/annonces.html"
+    
+    def get (self, request, pk, *args, **kwargs):
+        annonce = Annonce.objects.get(pk = pk)
+        same_category = Annonce.objects.valid().filter(Q(voiture__model=annonce.voiture.model) | Q(voiture__model__marque=annonce.voiture.model.marque))
+        same_category = same_category.exclude(pk=annonce.pk)[:10]
+        context = {
+            'annonce': annonce,
+            'same_category': same_category,
+        }
+        return render(request, self.template_name, context)
