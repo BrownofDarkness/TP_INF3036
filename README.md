@@ -37,7 +37,7 @@ Comment executer l'application :
 
 - executer l'application
   
-  ## Pour la premier fois
+  Pour la premier fois
   
   - Vous devez executer tous ces commande
   
