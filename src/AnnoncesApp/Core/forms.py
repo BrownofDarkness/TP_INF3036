@@ -4,9 +4,24 @@ from django.forms.models import inlineformset_factory
 from django.forms import formset_factory
 from .models import Marque, Modele, Voiture, Annonce, PhotoVoiture
 
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm,UserChangeForm
+from django.contrib.auth import get_user_model
 
 # Forumulaire des user
 
+User = get_user_model()
+
+class UserRegisterForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username','first_name','last_name','email','phone_1','phone_2','address']
+
+class UserUpdateForm(UserChangeForm):
+
+    class Meta(UserChangeForm.Meta):
+        model = User
+        fields = ['username','first_name','last_name','email','phone_1','phone_2','address']
 
 # Formulaire des Marque
 

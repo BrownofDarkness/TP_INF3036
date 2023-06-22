@@ -6,20 +6,82 @@ from django.db.models import Q
 
 from django.core.files.images import ImageFile
 
-from.models import PhotoVoiture
+from .models import PhotoVoiture
 
 from django.core.files.images import ImageFile
+from django.contrib.auth import login,login,authenticate
 # from django.views
 
-from .forms import VoitureForm,NewAnnonceForm, AnnonceForm
+from .forms import VoitureForm,NewAnnonceForm, AnnonceForm,UserRegisterForm,UserUpdateForm
 from .models import Voiture,PhotoVoiture,Annonce
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-
+from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
+class RegisterUserView(View):
 
-class CreateVoiture(View):
+    template_name = "core/register.html"
+    context = {}
+
+    def get(self,request,*args,**kwargs):
+        form =  UserRegisterForm()
+        self.context['form'] = form
+        return render(request, self.template_name,self.context)
+        
+
+    def post(self,request,*args,**kwargs):
+        form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            # redirect("login")
+        self.context['form'] = form
+        
+        return render(request, self.template_name,self.context)
+
+class LoginView(View):
+
+    template_name="core/login.html"
+    context = {}
+
+    def get(self,request,*args,**kwargs):
+        print("Athenticated",request.user.is_authenticated)
+        if request.user.is_authenticated:
+            return redirect("home")
+        form =  AuthenticationForm()
+        self.context['form'] = form
+        return render(request, self.template_name,self.context)
+        
+
+    def post(self,request,*args,**kwargs):
+        form = AuthenticationForm(request.POST)
+        print(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username =username, password = password)
+
+        if user is not None:
+            login(request,user)
+            return redirect("register")
+        else:
+            self.context['form'] = form
+        
+        return render(request, self.template_name,self.context)
+    
+class LogoutView(LoginRequiredMixin,View):
+
+    def get(self,request,*args,**kwargs):
+        login(request)
+
+        return redirect("home")
+        
+
+class CreateVoiture(LoginRequiredMixin,View):
     template_name = 'core/ajouter_voiture.html'
+    login_url = 'login'
+    redirect_url = 'ajouter_voiture'
     form_class = VoitureForm
 
     def get(self, request, *args, **kwargs):
@@ -113,6 +175,25 @@ class AnnoncesListView(View):
     
     def get (self, request, *args, **kwargs):
         queries = Annonce.objects.filter(status = 'validé')
+<<<<<<< HEAD
+        annee = request.GET.get('annee',None)
+        prix =  request.GET.get('prix',None)
+        marque = requests.GET.get('marque',None)
+        model = request.GET.get('model',None)
+        titre = request.GET.get('titre',None)
+
+        if titre:
+            queries = queries.filter(titre=titre)
+        if annee:
+            queries = queries.filter(voiture__annee=annee)
+        if prix:
+            queries = queries.filter(prix=prix)
+        if marque:
+            queries = queries.filter(voiture__model__marque__nom__icontains=marque)
+        if model:
+            queries = queries.filter(voiture__model__nom__icontains=model)
+        
+=======
         
         search = self.request.GET.get('search')
         if search:
@@ -120,6 +201,7 @@ class AnnoncesListView(View):
                 queries = Annonce.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
             else:
                 queries = Annonce.objects.none()
+>>>>>>> b7a3d5c89f2698b68bcf542212cf9e40dfa90ce0
         context = {
             'annonces': queries,
         }

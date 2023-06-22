@@ -74,6 +74,10 @@ class PhotoVoiture(admin.ModelAdmin):
     readonly_fields = ["photo_preview"]
 
 
+@admin.action(description="Valide annonce")
+def valider_annonce(modeladmin, request, queryset):
+    queryset.update(status="validé")
+
 @admin.register(Annonce)
 class AnnonceAdmin(admin.ModelAdmin):
     list_display = (
@@ -87,5 +91,9 @@ class AnnonceAdmin(admin.ModelAdmin):
         "date_creation",
     )
     search_fields = ("titre", "status", "prix")
+
+    actions = [valider_annonce]
+
+    
 
 
