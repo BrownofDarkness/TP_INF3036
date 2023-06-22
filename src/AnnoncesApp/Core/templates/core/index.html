@@ -63,7 +63,13 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-      <a href="connexion.html" class="book-a-table-btn scrollto d-none d-lg-flex">sign in</a>
+      {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="book-a-table-btn scrollto d-none d-lg-flex">sign out</a>
+        <a href="{% url 'dashboard_home' %}" class="book-a-table-btn scrollto d-none d-lg-flex">dashboard</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="book-a-table-btn scrollto d-none d-lg-flex">sign in</a>
+      {% endif %}
+      
 
     </div>
   </header><!-- End Header -->
@@ -95,6 +101,8 @@
           <p>Que voulez-vous savoir sur nos véhicules ?</p>
         </div>
 <div class="maclasse">
+
+
  
 <div class="card">
   <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
@@ -119,6 +127,24 @@
   <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
   <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
 </div>
+
+<div class="card">
+  <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+  <h2>Corola Versus</h2>
+  <p class="price">$19.99</p>
+  <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
+  <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+</div>
+
+{% for annonce in annonces %}
+<div class="card">
+  <img src="{{annonce.voiture.main_image}}" alt="Denim Jeans" style="width:100%">
+  <h2>{{annonce.titre}}</h2>
+  <p class="price">{{annonce.prix}} Frcfa</p>
+  <p>{{annonce.description}}</p>
+  <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+</div>
+{% endfor %}
 
 
 </div>

@@ -7,9 +7,10 @@ from django.db.models import Q
 from django.core.files.images import ImageFile
 
 from .models import PhotoVoiture
+from django.views.generic import UpdateView
 
 from django.core.files.images import ImageFile
-from django.contrib.auth import login,login,authenticate
+from django.contrib.auth import login,logout,authenticate
 # from django.views
 
 from .forms import VoitureForm,NewAnnonceForm, AnnonceForm,UserRegisterForm,UserUpdateForm
@@ -25,6 +26,8 @@ class RegisterUserView(View):
     context = {}
 
     def get(self,request,*args,**kwargs):
+        if request.user.is_authenticated:
+            return redirect("home")
         form =  UserRegisterForm()
         self.context['form'] = form
         return render(request, self.template_name,self.context)
@@ -36,14 +39,14 @@ class RegisterUserView(View):
         if form.is_valid():
             user = form.save()
             login(request,user)
-            # redirect("login")
+            return redirect("home")
         self.context['form'] = form
         
         return render(request, self.template_name,self.context)
 
 class LoginView(View):
 
-    template_name="core/login.html"
+    template_name="core/signin.html"
     context = {}
 
     def get(self,request,*args,**kwargs):
@@ -64,7 +67,7 @@ class LoginView(View):
 
         if user is not None:
             login(request,user)
-            return redirect("register")
+            return redirect("home")
         else:
             self.context['form'] = form
         
@@ -73,8 +76,7 @@ class LoginView(View):
 class LogoutView(LoginRequiredMixin,View):
 
     def get(self,request,*args,**kwargs):
-        login(request)
-
+        logout(request)
         return redirect("home")
         
 
@@ -143,7 +145,9 @@ class NewAnnonceView(View):
             # print(form.cleaned_data['voiture'])
             # voiture_data = validated_annonce.pop('voiture',None)
 
-            voiture = voiture_form.save(user = request.user)
+            voiture = voiture_form.save(commit=False)
+            voiture.proprietaire = request.user
+            voiture.save()
 
             if voiture:
                 images = request.FILES.getlist('photos')
@@ -153,6 +157,76 @@ class NewAnnonceView(View):
             annonce = form.save(commit=False)
             annonce.voiture = voiture
             annonce.save()
+        self.context['form'] = self.form_class()
+        
+        return render(request,self.template_name,self.context)
+    
+class NewAnnonceView2(View):
+    context = {}
+    template_name = 'core/new_annonce.html'
+    form_class = NewAnnonceForm
+    
+    def get(self,request,*args,**kwargs):
+
+        form = self.form_class()
+
+        self.context['form'] = form
+
+        return render(request,self.template_name,self.context)
+    
+    def post(self,request,*args,**kwargs):
+
+        form = self.form_class(request.POST)
+        voiture_form = VoitureForm(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            voiture_form.is_valid()
+            # print(form.cleaned_data['voiture'])
+            # print(request.FILE.getList('photos'))
+
+            voiture = voiture_form.save(commit=False)
+            voiture.proprietaire = request.user
+            voiture.save()
+
+            if voiture:
+                images = request.FILES.getlist('photos')
+                for image_file in images:
+                    image = PhotoVoiture.objects.create(voiture = voiture, photo = ImageFile(image_file))
+                    print(image.voiture)
+            annonce = form.save(commit=False)
+            annonce.voiture = voiture
+            annonce.save()
+        self.context['form'] = self.form_class()
+        
+        return render(request,self.template_name,self.context)
+    
+class MdAnnonceView(UpdateView):
+    model = Annonce
+    template_name = 'core/Md_annonce.html'
+    form_class = AnnonceForm
+    success_url = "/dashboard"
+    
+    
+    
+class MdVoitureView(View):
+    context = {}
+    template_name = 'core/Md_voiture.html'
+    form_class = VoitureForm
+    
+    def get(self,request,pk,*args,**kwargs):
+
+        form = self.form_class(request.POST or None, instance=Voiture.objects.get(pk=pk))
+
+        self.context['form'] = form
+
+        return render(request,self.template_name,self.context)
+    
+    def post(self,request,pk,*args,**kwargs):
+        obj = Voiture.objects.get(pk=pk)
+        form = self.form_class(request.POST or None, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboard_home")
         self.context['form'] = self.form_class()
         
         return render(request,self.template_name,self.context)
@@ -175,10 +249,9 @@ class AnnoncesListView(View):
     
     def get (self, request, *args, **kwargs):
         queries = Annonce.objects.filter(status = 'validé')
-<<<<<<< HEAD
         annee = request.GET.get('annee',None)
         prix =  request.GET.get('prix',None)
-        marque = requests.GET.get('marque',None)
+        marque = request.GET.get('marque',None)
         model = request.GET.get('model',None)
         titre = request.GET.get('titre',None)
 
@@ -193,15 +266,13 @@ class AnnoncesListView(View):
         if model:
             queries = queries.filter(voiture__model__nom__icontains=model)
         
-=======
         
         search = self.request.GET.get('search')
         if search:
             if len(search) > 3:
-                queries = Annonce.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
+                queries = Annonce.objects.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
             else:
                 queries = Annonce.objects.none()
->>>>>>> b7a3d5c89f2698b68bcf542212cf9e40dfa90ce0
         context = {
             'annonces': queries,
         }
@@ -212,6 +283,7 @@ class AnnoncesDetailView(View):
     
     def get (self, request, pk, *args, **kwargs):
         annonce = Annonce.objects.get(pk = pk)
+        print(annonce)
         same_category = Annonce.objects.filter(Q(voiture__model=annonce.voiture.model) | Q(voiture__model__marque=annonce.voiture.model.marque))
         same_category = same_category.exclude(pk=annonce.pk)[:10]
         context = {
@@ -219,6 +291,8 @@ class AnnoncesDetailView(View):
             'same_category': same_category,
         }
         return render(request, self.template_name, context)
+    
+
     
 class ValidateAnnonceView(View):
     
@@ -230,7 +304,7 @@ class ValidateAnnonceView(View):
             return redirect("dashboard")
     
 class DropAnnonceView(View):
-    template_name = "core/refused.html"
+    template_name = "core/delete_annonce.html"
     
     def get (self, request, pk, *args, **kwargs):
         annonce = Annonce.objects.get(pk = pk)
@@ -243,16 +317,40 @@ class DropAnnonceView(View):
         annonce = Annonce.objects.get(pk = pk)
         if annonce:
             annonce.delete()
-            return redirect("home")
+            return redirect("dashboard_home")
         
         context = {
             'annonce': annonce,
         }
         return render(request, self.template_name, context)
     
+class DropVoitureView(View):
+    template_name = "core/delete_voiture.html"
     
-class dashbordHome(View):
-    template_name = "dashbord/index.html"
+    def get (self, request, pk, *args, **kwargs):
+        voiture =  Voiture.objects.get(pk = pk)
+        context = {
+            'voiture': voiture,
+        }
+        return render(request, self.template_name, context)
+    
+    def post (self, request, pk, *args, **kwargs):
+        voiture =  Voiture.objects.get(pk = pk)
+        if voiture:
+            voiture.delete()
+            return redirect("dashboard_home")
+        
+        context = {
+            'voiture': voiture,
+        }
+        return render(request, self.template_name, context)
+    
+    
+    
+class DashbordHome(View):
+    template_name = "core/dashbord_home.html"
     
     def get(self, request, *args, **kwargs):
-        pass
+        annonces = Annonce.objects.filter(voiture__proprietaire = request.user)
+        voitures = request.user.annonces.all()
+        return render(request, self.template_name,{"annonces":annonces, "voitures":voitures})

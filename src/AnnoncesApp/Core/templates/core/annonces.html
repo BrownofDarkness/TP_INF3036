@@ -37,8 +37,8 @@
             <h1>Nos annonces disponibles</h1>
             <div class="maclasse">
             
-                <div class="card">
-                    <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                {% comment %} <div class="card">
+                    <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans">
                     <h2>Tailored Jeans</h2>
                     <p class="price">$19.99</p>
                     <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
@@ -103,7 +103,18 @@
                 <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
                 </p>
                 <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div> {% endcomment %}
+
+            {% for annonce in annonces %}
+                <div class="card">
+                <img src="{{annonce.voiture.main_image}}" alt="Denim Jeans">
+                <h2>{{annonce.titre}}</h2>
+                <p class="price">{{annonce.prix}}</p>
+                <p>{{annonce.description}}
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=annonce.id %}">Details</a> </button>
             </div>
+            {% endfor %}
             
             </div>
         </div>
