@@ -7,9 +7,9 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
 
 
-    phone_1 = models.CharField(max_length=20)
-    phone_2 = models.CharField(max_length=20)
-    address = models.CharField(max_length=255)
+    phone_1 = models.CharField(max_length=20,blank=True,null=True)
+    phone_2 = models.CharField(max_length=20,null=True, blank=True)
+    address = models.CharField(max_length=255,null=True, blank=True)
     class Meta(AbstractUser.Meta):
         pass
     
@@ -22,21 +22,35 @@ class Marque(models.Model):
 
 
 class Modele(models.Model):
+    TYPE = (('electrique','electrique'),('essence','essence'),('diesele','diesele'))
     nom = models.CharField(max_length=100, unique=True)
     marque = models.ForeignKey(Marque, on_delete=models.CASCADE, related_name="models")
+    type = models.CharField(max_length=20,choices=TYPE)
     def __str__(self) -> str:
         return self.nom
 
 
 class Voiture(models.Model):
+
+    
     annee = models.IntegerField()
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     num_chassi = models.CharField(max_length=255)
+    km_parcouru = models.IntegerField()
     model = models.ForeignKey(Modele, on_delete=models.CASCADE, related_name="voitures")
     proprietaire = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="annonces"
     )
+    
+    @property
+    def main_image(self):
+        image = self.images.first()
+
+        if image:
+            if image.photo:
+                return image.photo.url
+            return
 
     def __str__(self) -> str:
         return f"{self.model.marque} {self.model} ({self.annee})"

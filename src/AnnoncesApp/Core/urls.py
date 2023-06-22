@@ -10,5 +10,9 @@ urlpatterns = [
     
     re_path(r"ajouter_voiture/?", CreateVoiture.as_view(), name="ajouter_voiture"),
     re_path(r"nouvelle_annonce/?",NewAnnonceView.as_view(),name="new_annonce"),
+
+    re_path(r"register/?",RegisterUserView.as_view(),name="register"),
+    re_path(r"login/?",LoginView.as_view(),name="login"),
+    re_path(r"logout/?",LogoutView.as_view(),name="logout")
     
 ]
