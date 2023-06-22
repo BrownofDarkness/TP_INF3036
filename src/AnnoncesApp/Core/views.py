@@ -1,4 +1,5 @@
 import random
+import re
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
@@ -112,6 +113,13 @@ class AnnoncesListView(View):
     
     def get (self, request, *args, **kwargs):
         queries = Annonce.objects.filter(status = 'validé')
+        
+        search = self.request.GET.get('search')
+        if search:
+            if len(search) > 3:
+                queries = Annonce.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
+            else:
+                queries = Annonce.objects.none()
         context = {
             'annonces': queries,
         }
@@ -161,4 +169,8 @@ class DropAnnonceView(View):
         return render(request, self.template_name, context)
     
     
-
+class dashbordHome(View):
+    template_name = "dashbord/index.html"
+    
+    def get(self, request, *args, **kwargs):
+        pass
