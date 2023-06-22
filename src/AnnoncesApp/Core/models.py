@@ -23,18 +23,18 @@ class Marque(models.Model):
 
 class Modele(models.Model):
     TYPE = (('electrique','electrique'),('essence','essence'),('diesele','diesele'))
-    nom = models.CharField(max_length=100, unique=True)
+    nom = models.CharField(max_length=100)
     marque = models.ForeignKey(Marque, on_delete=models.CASCADE, related_name="models")
     type = models.CharField(max_length=20,choices=TYPE)
     def __str__(self) -> str:
-        return self.nom
+        return f"{self.nom} [{self.type}]"
 
 
 class Voiture(models.Model):
 
-    
+
     annee = models.IntegerField()
-    prix = models.DecimalField(max_digits=10, decimal_places=2)
+    prix = models.DecimalField(max_digits=10, decimal_places=2,help_text="in XAF")
     description = models.TextField()
     num_chassi = models.CharField(max_length=255)
     km_parcouru = models.IntegerField()
@@ -50,7 +50,12 @@ class Voiture(models.Model):
         if image:
             if image.photo:
                 return image.photo.url
-            return
+            return ''
+        return ''
+
+    @property
+    def km(self):
+        return f"{self.km_parcouru} km"
 
     def __str__(self) -> str:
         return f"{self.model.marque} {self.model} ({self.annee})"
@@ -66,7 +71,7 @@ class Annonce(models.Model):
     titre = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(max_length=255, choices=STATUTS, default='en attente')
-    prix = models.DecimalField(max_digits=10, decimal_places=2)
+    prix = models.DecimalField(max_digits=10, decimal_places=2,help_text="in XAF")
     voiture = models.ForeignKey(
         Voiture, on_delete=models.CASCADE, related_name="annonces"
     )

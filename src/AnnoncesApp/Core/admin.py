@@ -49,22 +49,25 @@ class MarqueAdmin(admin.ModelAdmin):
 
 @admin.register(Modele)
 class ModeleAdmin(admin.ModelAdmin):
-    list_display = ("id", "nom",'marque')
+    list_display = ("id", "nom",'marque',"type")
     search_fields = ("nom",'marque__nom',)
 
 
 class PhotoVoitureInline(admin.TabularInline):
     model = PhotoVoiture
-    
+    extra = 0
+
+class AnnonceInline(admin.TabularInline):
+    model = Annonce
     extra = 0
 
 @admin.register(Voiture)
 class VoitureAdmin(admin.ModelAdmin):
-    list_display = ("id", "model", "prix", "annee", "description", "proprietaire")
+    list_display = ("id", "model", "prix", "annee","km", "description", "proprietaire")
     search_fields = ("model__nom","model__marque__nom", "annee", "prix")
     list_filter = ("annee", "model", "prix")
 
-    inlines= [PhotoVoitureInline]
+    inlines= [PhotoVoitureInline,AnnonceInline]
 
 
 @admin.register(PhotoVoiture)

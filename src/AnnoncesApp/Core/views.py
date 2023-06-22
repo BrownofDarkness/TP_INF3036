@@ -254,6 +254,7 @@ class AnnoncesListView(View):
         marque = request.GET.get('marque',None)
         model = request.GET.get('model',None)
         titre = request.GET.get('titre',None)
+        km = request.GET.get('km_parcouru',None)
 
         if titre:
             queries = queries.filter(titre=titre)
@@ -265,6 +266,8 @@ class AnnoncesListView(View):
             queries = queries.filter(voiture__model__marque__nom__icontains=marque)
         if model:
             queries = queries.filter(voiture__model__nom__icontains=model)
+        if km:
+            queries = queries.filter(voiture__km_parcouru=int(km))
         
         
         search = self.request.GET.get('search')
