@@ -97,7 +97,7 @@ class NewAnnonceView(View):
 
 
 class HomeView(View):
-    template_name = "core/home.html"
+    template_name = "core/index.html"
     
     def get (self, request, *args, **kwargs):
         queries = list(Annonce.objects.filter(status = 'validé'))
@@ -126,11 +126,11 @@ class AnnoncesListView(View):
         return render(request, self.template_name, context)
     
 class AnnoncesDetailView(View):
-    template_name = "core/annonces.html"
+    template_name = "core/annonce_details.html"
     
     def get (self, request, pk, *args, **kwargs):
         annonce = Annonce.objects.get(pk = pk)
-        same_category = Annonce.objects.valid().filter(Q(voiture__model=annonce.voiture.model) | Q(voiture__model__marque=annonce.voiture.model.marque))
+        same_category = Annonce.objects.filter(Q(voiture__model=annonce.voiture.model) | Q(voiture__model__marque=annonce.voiture.model.marque))
         same_category = same_category.exclude(pk=annonce.pk)[:10]
         context = {
             'annonce': annonce,

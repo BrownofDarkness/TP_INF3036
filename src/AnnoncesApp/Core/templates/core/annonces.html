@@ -1,0 +1,116 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% load static %}
+
+{% block styles %}
+<meta content="" name="description">
+<meta content="" name="keywords">
+<link href="{% static 'css/Detail.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %} 
+
+  <!-- ======= Top Bar ======= -->
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-cente">
+
+    <img src="{% static 'img/car.jpg' %}" alt="">
+
+    <div class="liens">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="connexion.html">Sign In</a>
+    </div>
+
+</header><!-- End Header -->
+
+    <main class="main">
+        <div class="search">
+            <h1>Annonces Disponibles</h1>
+            <h3>Que souhaitez vous retrouver?</h3>
+        <form action="">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit">Submit</button>
+        </form>
+        </div>
+
+        <div class="annonces">
+            <h1>Nos annonces disponibles</h1>
+            <div class="maclasse">
+            
+                <div class="card">
+                    <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                    <h2>Tailored Jeans</h2>
+                    <p class="price">$19.99</p>
+                    <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                    </p>
+                    <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+                </div>
+            
+                <div class="card">
+                    <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                    <h2>Toyota</h2>
+                    <p class="price">$19.99</p>
+                    <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                    </p>
+                    <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+                </div>
+            
+                <div class="card">
+                    <img src="{% static 'img/car.jpg' %}" alt="{% url 'annonce_details' pk=1 %}" style="width:100%">
+                    <h2>Corola Versus</h2>
+                    <p class="price">$19.99</p>
+                    <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                    </p>
+                    <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+                </div>
+            <div class="card">
+                <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                <h2>Corola Versus</h2>
+                <p class="price">$19.99</p>
+                <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div>
+            <div class="card">
+                <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                <h2>Corola Versus</h2>
+                <p class="price">$19.99</p>
+                <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div>
+
+            <div class="card">
+                <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                <h2>Corola Versus</h2>
+                <p class="price">$19.99</p>
+                <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div>
+            <div class="card">
+                <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                <h2>Corola Versus</h2>
+                <p class="price">$19.99</p>
+                <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div>
+            <div class="card">
+                <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
+                <h2>Corola Versus</h2>
+                <p class="price">$19.99</p>
+                <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.
+                </p>
+                <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
+            </div>
+            
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/Detail.js' %}"></script>
+{% endblock script %}

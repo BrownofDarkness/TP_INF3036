@@ -1,0 +1,48 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %} 
+{% load static %}
+
+{% block styles %}
+<meta content="" name="description">
+<meta content="" name="keywords">
+<link href="{% static 'css/connexion.css' %}" rel="stylesheet">
+{% endblock styles %}
+
+{% block content %} 
+
+ <!-- ======= Top Bar ======= -->
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-cente">
+
+        <img src="./assets/img/car.jpg" alt="">
+
+        <div class="liens">
+            <a href="index.html">Home</a>
+            <a href="connexion.html">Sign In</a>
+        </div>
+
+    </header><!-- End Header -->
+    <main>
+        <div class="main">
+            <div class="title">
+                <h2>Bienvenue à vous</h2>
+                <p>bien vouloir remplir le formulqire ci-contre merci!!!</p>
+            </div>
+            <div class="formulaire">
+                <form action="">
+                    <input type="text" placeholder="name" required>
+                    <input type="text" placeholder="surname" required>
+                    <input type="password" placeholder="password" required>
+                    <button type = "submit">Register</button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'js/Detail.js' %}"></script>
+{% endblock script %}

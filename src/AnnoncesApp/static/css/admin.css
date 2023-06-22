@@ -1,0 +1,153 @@
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}.sidebar {
+    height: 100%;
+    width: 240px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background:#0218a8;
+    color: white;
+    overflow-y: auto;
+    transition: width 500ms;
+    padding: 1rem;
+}
+main{
+    margin-left:240px;
+    height: 100%;
+    padding: 1rem;
+}
+.main {
+    margin-left: 10rem;
+    margin-right: 10rem;
+    display: flex;
+    background: white;
+    box-shadow: 0 8px 20px 0 rgba(9, 116, 211, 0.315);
+}
+
+.title {
+    background: #0218a8;
+    width: 100%;
+   
+    
+}
+
+.title h2 {
+    margin-top: 7rem;
+    margin-left: 2rem;
+    font-size: 2rem;
+    color: white;
+
+}
+
+.title p {
+    margin: 3rem;
+    font-size: 1.1rem;
+}
+
+.formulaire {
+    margin: 2rem;
+}
+
+.formulaire input {
+    width: 100%;
+    margin: 1rem;
+    height: 3rem;
+    border: none;
+    padding: 5px;
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+.formulaire select {
+    width: 100%;
+    margin: 1rem;
+    height: 3rem;
+    border: none;
+    padding: 5px;
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+.formulaire textarea{
+    width: 100%;
+        margin: 1rem;
+        border: none;
+        padding: 5px;
+        box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+
+button {
+    padding: 10px;
+    color: white;
+    background: blue;
+    border-radius: 10px;
+    width: 7rem;
+    float: right;
+    border: none;
+    font-size: 1rem;
+    margin: 1rem;
+}
+
+form a {
+    margin: 0;
+    font-size: 1rem;
+}
+
+form a:hover {
+    color: white;
+}
+a{
+    color: white;
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 5rem;
+    font-weight: bold;
+}
+a:hover{
+    color: black;
+
+}
+ul{
+    margin-top: 2rem;
+   
+}
+li{
+    margin-bottom: 1rem;
+   
+}
+li:hover{
+  
+    color: black;
+    border-radius: 4px;
+   
+  
+}table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: 10px;
+    background-color:#fd9fda ;
+    color: white;
+    margin-top: 2rem;
+}
+button{
+    font-weight: bold;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 16px;
+    color: black;
+}
+
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+

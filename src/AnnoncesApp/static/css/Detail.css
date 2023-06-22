@@ -1,0 +1,271 @@
+
+.Carousel{
+    margin: 2rem;
+    display: flex;
+    color: #f9f9f7;
+    box-shadow: 0 8px 20px 0 rgba(251, 250, 250, 0.315);
+    border-radius: 20px;
+}
+
+.Carouselchild{
+    width: 45%;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+h1{
+    font-size: 3rem;
+    
+}
+.circle{
+    font-family: "Open Sans", sans-serif;
+        background: #07208f;
+        position: absolute;
+        height: 19rem;
+        width: 19rem;
+        border-radius: 50%;
+        z-index: -1;
+        border-radius: 50%;
+        color: #fff;
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    background: #0c0b09;
+    color: #fff;
+}
+header img{
+    height: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin: 1rem;
+}
+header{
+    display: flex;
+    box-shadow: 0 8px 20px 0 rgba(42, 41, 41, 0.315);
+    background: #5f8cff;
+}
+.liens{
+    margin: auto;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+    margin: 1rem;
+    font-size: 1.4rem;
+  
+}
+
+a:hover {
+    color: #d9ba85;
+   
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Playfair Display", serif;
+}
+/* Slideshow container */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.autres .card {
+box-shadow: 0 4px 8px 0 rgba(11, 8, 8, 0.2);
+    max-width: 300px;
+    float: left;
+    margin: 1rem;
+    text-align: center;
+    font-family: arial;
+    color: black;
+    
+}
+
+.autres .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(8, 0, 0, 0.315);
+    color: #021f7d;
+}
+
+.container {
+    padding: 2px 16px;
+}
+.autres{
+    margin: 1rem;
+   display: flex;
+background: #f3f2f1;
+
+}
+.main{
+    margin: 2rem;
+
+}
+.search{
+    margin: 3rem;
+    padding: 3rem;
+    background: #a2c7fb;
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+    height: 10rem;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.search h1{
+    margin: 2px;
+
+}
+input{
+        padding: 10px;
+        margin: 0;
+        font-size: 17px;
+        border: none;
+        width: 40%;
+        border-radius: 5px;
+    
+}
+.search button{
+
+
+border: none;
+        margin: 0;
+        padding: 13px;
+        border-radius: 5px;
+        color: white;
+        background: #0218a8;
+}
+.annonces{
+    margin: 3rem;
+}
+.annonces h1{
+    text-align: center;
+}
+.annonces .bouton {
+    width: 100%;
+    background: #043bc5;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.annonces .card {
+    
+    box-shadow: 0 4px 8px 0 rgba(246, 247, 248, 0.2);
+    max-width: 300px;
+    float: left;
+    margin: 1rem;
+    text-align: center;
+    font-family: arial;
+    border-radius: 10px;
+    background: #a2c7fb;
+}
+.annonces .card:hover{
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+    
+    }
+    .annonces form{
+       margin: 2rem;
+    }
+   .annonces input{
+        width: 100%;
+    }
+
+
+.price {
+    color: grey;
+    font-size: 22px;
+}
+
