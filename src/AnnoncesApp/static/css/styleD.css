@@ -1,0 +1,639 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap);
+:root{
+    --main-color: rgb(4, 18, 39);
+    --color-dark: rgb(4, 18, 39);
+    --text-grey:  rgb(109, 182, 204);
+}
+*{
+    font-family: 'Poppins', sans-serif;
+   margin: 0;
+   padding: 0;
+   text-decoration: none;
+   list-style: none;
+   box-sizing: border-box;
+}
+.sidebar-toggle{
+    display: none;
+}
+a{
+    color: white;
+}
+
+.ti-menu-alt:hover{
+    color: red;
+}
+
+.sidebar{
+    height: 100%;
+    width: 240px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: var(--main-color);
+    color:white;
+    overflow-y: auto;
+    transition: width 500ms;
+}
+.sidebar-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0rem 1rem;
+}
+.sidebar-menu{
+    padding: 1rem;
+}
+.sidebar li{
+    margin-bottom: 1.2rem;
+}
+.sidebar a{
+    color: white;
+    font-size: .9rem;
+}
+
+.sidebar a span:last-child{
+    padding-right: .6rem;
+}
+a:hover{
+    color: red;
+}
+
+span:hover{
+    color: red;
+}
+button:hover{
+    
+    background-color:blue;
+}
+
+#sidebar-toggle:checked ~ .sidebar {
+    width: 60px;
+}
+
+#sidebar-toggle:checked ~ .sidebar .sidebar-header h3 span,
+#sidebar-toggle:checked ~ .sidebar li span:last-child
+{
+        display: none; 
+       
+}
+
+#sidebar-toggle:checked ~ .sidebar .sidebar-header,
+#sidebar-toggle:checked ~ .sidebar li
+{
+      display: flex;
+      justify-content: center;
+       
+}
+
+#sidebar-toggle:checked ~ .main-content {
+    margin-left: 60px;
+}
+
+#sidebar-toggle:checked ~ .main-content header {
+    width: calc(100% - 60px);
+    transition: width 500ms;
+}
+
+.main-content{
+   background: rgb(228, 235, 240);
+    margin-left: 240px;
+    transition: margin-left 500ms;
+}
+header{
+    position: fixed;
+    right: 0px;
+    top: 0;
+    z-index: 100;
+    width: calc(100% - 240px);
+    background: rgb(228, 235, 240);
+    height: 60px;
+    padding: 0rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: width 500ms;
+}
+.search-wrapper{
+    display: flex;
+    align-items: center;
+    background: white;
+}
+.main-content input{
+    border: 0;
+    outline: 0;
+    padding: 1rem;
+    height: 30px;
+}
+.social-icons{
+    display: flex;
+    align-items: center;
+}
+.social-icons span,
+.social-icons div{
+    margin-left: 1.2rem;
+}
+.social-icons div{
+    height: 38px;
+    width: 38px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(../img/images.jpg);
+    border-radius: 50%;
+}
+.main {
+    margin-left: 10rem;
+    margin-right: 10rem;
+    display: flex;
+    background: white;
+    box-shadow: 0 8px 20px 0 rgba(9, 116, 211, 0.315);
+}
+
+.main2{
+    margin-left:240px;
+    height: 100%;
+    padding: 1rem;
+}
+
+.formulaire {
+    margin: 2rem;
+}
+
+.formulaire input {
+    width: 100%;
+    margin: 1rem;
+    height: 3rem;
+    border: none;
+    padding: 5px;
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+.formulaire select {
+    width: 100%;
+    margin: 1rem;
+    height: 3rem;
+    border: none;
+    padding: 5px;
+    box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+.formulaire textarea{
+    width: 100%;
+        margin: 1rem;
+        border: none;
+        padding: 5px;
+        box-shadow: 0 8px 16px 0 rgba(88, 175, 250, 0.315);
+}
+
+main{
+    margin-top: 60px;
+    min-height: 90vh;
+    padding: 1rem 3rem;
+}
+.dash-title{
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+}
+.dash-cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 4rem;
+}
+.card-single{
+    background: url(../img/coiffure-femme-noire-metis-hairstyles-black-women-1.jpg);
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.3);
+    height: 10rem;
+}
+.card-body{
+    padding: 1.3rem 1rem;
+    display: flex;
+    align-items: center;
+}
+.card-body span{
+    font-size: 1.7rem;
+    color: #777;
+    padding-right: 1.3rem;
+}
+.card-body h5{
+    color: var(--text-grey);
+    font-size: 1rem;
+}
+.card-body h4{
+    color: var(--color-dark);
+    font-size: 1.1rem;
+    margin-top: .5rem;
+}
+.card-footer{
+    padding: .2rem 1rem;
+    background: #f9fafc;
+}
+.card-footer a{
+    color: var(--main-color);
+}
+
+.recent{
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.activity-grid{
+    display: grid;
+    grid-template-columns: 100%;
+    grid-column-gap: 1.5rem;
+}
+.activity-card{
+    
+    border-radius: 7px;
+
+}
+.activity-card h3{
+    color: var(--color-dark);
+    margin: 1rem;
+}
+.activity-card table{
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+}
+.activity-card thead{
+    background-color: var(--color-dark);
+    color: white;
+    text-align: left;
+}
+th, td{
+    font-size: .9rem;
+    padding:  1rem 1rem;
+}
+td{
+    font-size: .8rem;
+}
+
+.table-responsive{
+    overflow-x: auto;
+}
+h6{
+    font-size: 2rem;
+}
+
+@media screen and (max-width: 1200px)
+    
+{
+    
+    
+    .sidebar {
+    width: 60px;
+    z-index: 150;
+    }
+
+    .sidebar .sidebar-header h3 span,
+    .sidebar li span:last-child
+    {
+            display:none; 
+        
+    }
+    .sidebar .sidebar-header,
+    .sidebar li
+    {
+        display: flex;
+        justify-content: center;
+        
+    }
+
+    .main-content {
+        margin-left: 60px;
+    }
+    .main-content header {
+        left: 60px;
+        width: calc(100% - 60px);
+    }
+    #sidebar-toggle:checked ~ .sidebar {
+        width: 240px;
+    }
+
+    #sidebar-toggle:checked ~ .sidebar .sidebar-header h3 span,
+    #sidebar-toggle:checked ~ .sidebar li span:last-child
+    {
+            display:inline; 
+        
+    }
+
+    #sidebar-toggle:checked ~ .sidebar .sidebar-header
+
+    {
+        display: flex;
+        justify-content: space-between;
+        
+    }
+
+    #sidebar-toggle:checked ~ .sidebar li
+    {
+        display: block;
+    
+        
+    }
+
+    #sidebar-toggle:checked ~ .main-content {
+        margin-left: 60px;
+    }
+
+    
+
+}
+
+@media screen and (max-width: 860px)
+    
+{
+    
+    .dash-cards{
+        grid-template-columns: repeat(2,1fr);
+        margin-left: 4rem;
+    }
+    .card-single{
+        margin-bottom: 1rem;
+    }
+    .activity-grid{
+        display: block;
+    }
+   
+    .sup1{
+        width: 100%;
+    }
+    .sup1 h4{
+        
+        font-size: 1px;
+      }
+      .sup1 button{
+        width: 40%;
+        
+}
+.sup1 .but{
+    margin-left: 0rem;
+
+}
+ 
+}
+
+@media screen and (max-width: 600px)
+    
+{
+    main{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    .dash-cards{
+        grid-template-columns: 100%;
+    }
+    h6{
+        font-size: 20px;
+        
+    }
+   .modal{
+    width: 100%;
+   }
+   th, td{
+    font-size: .7rem;
+    padding:  0.8rem 0.8rem;
+}
+td{
+    font-size: .7rem;
+    text-decoration: solid;
+}   
+h6{
+    font-size: 10px;
+   
+}
+.sup1{
+    width: 100%;
+}
+.sup1 h4{
+   
+    font-size: 1px;
+  }
+  .sup1 button{
+    width: 40%;
+    
+}
+.sup1 .but{
+margin-left: 0rem;
+
+}
+ 
+
+}
+
+@media screen and (max-width: 450px)
+    
+{
+    
+ 
+     main{
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .activity-card table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .activity-card thead{
+        background-color: var(--color-dark);
+        color: white;
+        text-align: center;
+    }
+    th, td{
+        font-size: .7rem;
+        padding:  0.8rem 0.8rem;
+    }
+    td{
+        font-size: .7rem;
+        text-decoration: solid;
+    }   
+    h6{
+        font-size: 10px;
+       
+    }
+    .sup1{
+        width: 100%;
+    }
+    .sup1 h4{
+        
+        font-size: 1px;
+      }
+      .sup1 button{
+        width: 40%;
+        
+}
+.sup1 .but{
+    margin-left: 0rem;
+
+}
+}
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+    margin-top: 60px;
+  }
+
+  .modal1 {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+    margin-top: 60px;
+  }
+
+  .sup{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+   margin: auto;
+  }
+
+  .sup1{
+    background: white;
+    margin: 15% 20% 20% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 4px solid #888;
+    width: 40%; 
+    height: 15rem;
+    padding-bottom: 2rem;
+    align-items: center;
+    
+  }
+  .sup1 .but{
+    margin-left: 4rem;
+   
+    
+  }
+  .sup1 h4{
+    text-align: center;
+    padding-bottom: 4rem;
+    font-size: 1.5rem;
+  }
+  .sup1 .but button{
+    width: 40%;
+   
+    
+
+  }
+  /* Modal Content/Box */
+  .modal-content {
+    background: white;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 4px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+  }
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    background-color: #f44336;
+  }
+  /* Float cancel and signup buttons and add an equal width */
+  .cancelbtn, .signupbtn {
+    float: left;
+   
+  }
+  
+  /* Add padding to container elements */
+  .container {
+    padding: 16px;
+  }
+
+  /* Full-width input fields */
+input[type=text], input[type=password], input[type=file], input[type=date], input[type=number] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+  
+  select{
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+  
+  textarea{
+      width: 100%;
+      padding: 15px;
+      margin: 5px 0 22px 0;
+      display: inline-block;
+      border: none;
+      background: #f1f1f1;
+  }  
+ 
+  /* The Close Button (x) */
+  .close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
+  button{
+    width: 6rem;
+    height: 2.5rem;
+    background:var(--color-dark);
+    border-radius: 5px;
+    overflow:  var(--color-dark);
+    color: white;
+    border: 0px;
+    
+  
+}
+
+  
+  /* Change styles for cancel button and signup button on extra small screens */
+  @media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+        width: 100%;
+    }
+    .sup1 button{
+        width: 40%;
+        
+}
+.sup1 .but{
+    margin-left: 0rem;
+
+}
+   
+}
+
+.butu{
+    float: right;
+    margin-bottom: 0rem;
+}

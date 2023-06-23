@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="{% static 'css/styleD.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="checkbox" id="sidebar-toggle">
+      {% include 'dashboard/sidebar.html' %}
+       <div class="main-content">
+        <header>
+            <form action="" method="get" class="search-wrapper">
+              <button type="submit"><span class="ti-search"></span></button>
+                <input type="search" name="client" placeholder="search">
+            </form>
+            <div class="social-icons">
+                <span class="ti-bell"></span>
+                <span class="ti-comment"></span>
+                <div></div>
+            </div>
+           
+        </header>
+        <main class='main2'>
+            <h2 class="dash-title">creer une autre annonce pour une de vos voitures</h2>
+           
+            <div class="main">
+               
+                <div class="formulaire">
+                    <form method="post", enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" class="btn btn-success" style="color: green;"/>
+                    </form>
+                </div>
+            
+            </div>
+
+            
+    
+        </main>
+       </div>
+   
+    
+
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+<script>
+
+  // Get the modal
+  var modal = document.getElementById('id01');
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
+</body>
+</html>

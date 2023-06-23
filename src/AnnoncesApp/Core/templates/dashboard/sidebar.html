@@ -1,0 +1,49 @@
+<div class="sidebar">
+    <div class="sidebar-header">
+     <h3 class="brand">
+         <span class="ti-unlink"></span>
+         <span>dashboard</span>
+     </h3>
+     
+     <label for="sidebar-toggle" class="ti-menu-alt"></label>
+    </div>
+    <div class="sidebar-menu">
+     <ul>
+         <li>
+             <a href="{% url 'dashboard_home' %}">
+                 <span class="ti-user"></span>
+                 <span> dashboard home</span>
+             </a>
+         </li>
+
+         <li>
+            <a href="{% url 'new_annonce' %}">
+                <span class="ti-book"></span>
+                <span> first annonce</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'other_annonce' %}">
+                <span class="ti-folder"></span>
+                <span> new annonce</span>
+            </a>
+        </li>
+                   
+         
+         <li>
+             <a href="{% url 'home' %}">
+                     <span class="ti-home"></span>
+                 <span>Home</span>
+             </a>
+         </li>
+
+         <li>
+             <a href="{% url 'logout' %}">
+                 <span class="ti-unlock"></span>
+                 <span>Déconnexion</span>
+             </a>
+         </li>
+     </ul>
+    </div>
+ </div>

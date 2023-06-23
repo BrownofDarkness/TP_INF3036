@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <link rel="stylesheet" href="{% static 'css/styleD.css' %}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="checkbox" id="sidebar-toggle">
+      {% include 'dashboard/sidebar.html' %}
+       <div class="main-content">
+        <header>
+            <form action="" method="get" class="search-wrapper">
+              <button type="submit"><span class="ti-search"></span></button>
+                <input type="search" name="search" placeholder="search">
+            </form>
+            <div class="social-icons">
+                <span class="ti-bell"></span>
+                <span class="ti-comment"></span>
+                <div></div>
+            </div>
+           
+        </header>
+        <main>
+            <h2 class="dash-title">page Proprétaires</h2>
+           
+            <section class="recent">
+                <div class="activity-grid">
+                        
+                    <div class="activity-card">
+                         
+                        <h3>liste de toutes vos annonces</h3>
+                       
+
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Titre</th>
+                                        <th>Price</th>
+                                        <th>voiture</th>
+                                        <th>Details</th>
+                                        <th>Update</th>
+                                        <th>Remove</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for annonce in annonces %}
+                                    <tr>
+                                        <td>{{annonce.titre}}</td>
+                                        <td>{{annonce.prix}}</td>
+                                        <td>{{annonce.voiture}}</td>
+                                        <td><button><a href="{% url 'annonce_details' pk=annonce.id %}">Details</a></button></td>
+                                        <td><button><a href="{% url 'update_annonce' pk=annonce.id %}">update</a></button></td>
+                                        <td><button><a href="">remove</a></button></td>
+                                        <td><button><a href="{% url 'delete_annonce' pk=annonce.id %}">delete</a></button></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div> 
+                
+                </div>
+            </section>
+
+            <section class="recent">
+              <div class="activity-grid">
+                      
+                  <div class="activity-card">
+                      <h3>liste de toutes vos voitures</h3>
+                     
+
+                      <div class="table-responsive">
+                          <table>
+                              <thead>
+                                <tr>
+                                  <th>Model</th>
+                                  <th>Marque</th>
+                                  <th>Prix</th>
+                                  <th>Update</th>
+                                  <th>Delete</th>
+                          
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for voiture in voitures %}
+                                  <tr>
+                                      <td>{{voiture.model.nom}}</td>
+                                      <td>{{voiture.model.marque.nom}}</td>
+                                      <td>{{voiture.prix}}</td>
+                                      <td><button><a href="{% url 'update_voiture' pk=voiture.id %}">update</a></button></td>
+                                      <td><button><a href="{% url 'delete_voiture' pk=voiture.id %}">delete</a></button></td>
+                                  </tr>
+                                {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                      
+                  </div> 
+              
+              </div>
+          </section>
+            <!--formulaire de suppression-->
+            
+            <!--formulaire ajouter-->
+            <div id="id02" class="modal">
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">fermer</span>
+                <form class="modal-content" action="" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="container">
+                    <h6>Remplissez moi</h6>
+                      {% csrf_token %}
+                      {{form.as_p}}
+                    <div class="clearfix">
+                      <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+                      <button type="submit" class="signup">enregistre</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+    
+        </main>
+       </div>
+   
+    
+       <script>
+
+        // Get the modal
+        var modal = document.getElementById('id02');
+
+
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        </script>
+
+<script>
+
+  // Get the modal
+  var modal = document.getElementById('id01');
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+  </script>
+</body>
+</html>

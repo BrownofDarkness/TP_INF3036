@@ -163,7 +163,7 @@ class NewAnnonceView(View):
     
 class NewAnnonceView2(View):
     context = {}
-    template_name = 'core/new_annonce.html'
+    template_name = 'dashboard/new_annonce.html'
     form_class = NewAnnonceForm
     
     def get(self,request,*args,**kwargs):
@@ -181,8 +181,6 @@ class NewAnnonceView2(View):
         print(request.POST)
         if form.is_valid():
             voiture_form.is_valid()
-            # print(form.cleaned_data['voiture'])
-            # print(request.FILE.getList('photos'))
 
             voiture = voiture_form.save(commit=False)
             voiture.proprietaire = request.user
@@ -200,9 +198,33 @@ class NewAnnonceView2(View):
         
         return render(request,self.template_name,self.context)
     
+class OtherAnnonceView(View):
+    context = {}
+    template_name = 'dashboard/other_annonce.html'
+    form_class = AnnonceForm
+    
+    def get(self,request,*args,**kwargs):
+
+        form = self.form_class()
+
+        self.context['form'] = form
+
+        return render(request,self.template_name,self.context)
+    
+    def post(self,request,*args,**kwargs):
+
+        form = self.form_class(request.POST)
+        print(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboard_home")
+        self.context['form'] = self.form_class()
+        
+        return render(request,self.template_name,self.context)
+    
 class MdAnnonceView(UpdateView):
     model = Annonce
-    template_name = 'core/Md_annonce.html'
+    template_name = 'dashboard/Md_annonce.html'
     form_class = AnnonceForm
     success_url = "/dashboard"
     
@@ -210,7 +232,7 @@ class MdAnnonceView(UpdateView):
     
 class MdVoitureView(View):
     context = {}
-    template_name = 'core/Md_voiture.html'
+    template_name = 'dashboard/Md_voiture.html'
     form_class = VoitureForm
     
     def get(self,request,pk,*args,**kwargs):
@@ -225,7 +247,19 @@ class MdVoitureView(View):
         obj = Voiture.objects.get(pk=pk)
         form = self.form_class(request.POST or None, instance=obj)
         if form.is_valid():
+            images = request.FILES.getlist('photos')
+            if images:
+                last_images = obj.images.all()
+                for image in last_images:
+                    image.delete()
+                    
+                for image_file in images:
+                    image = PhotoVoiture.objects.create(voiture = obj, photo = ImageFile(image_file))
+                    print(image.voiture)
+            
             form.save()
+            
+                
             return redirect("dashboard_home")
         self.context['form'] = self.form_class()
         
@@ -351,7 +385,7 @@ class DropVoitureView(View):
     
     
 class DashbordHome(View):
-    template_name = "core/dashbord_home.html"
+    template_name = "dashboard/index.html"
     
     def get(self, request, *args, **kwargs):
         annonces = Annonce.objects.filter(voiture__proprietaire = request.user)

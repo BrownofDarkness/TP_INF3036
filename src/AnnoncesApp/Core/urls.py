@@ -14,6 +14,7 @@ urlpatterns = [
     path("annonces/<int:pk>/update",MdAnnonceView.as_view(),name="update_annonce"),
     path("voiture/<int:pk>/update",MdVoitureView.as_view(),name="update_voiture"),
     path("new_annonce/",NewAnnonceView2.as_view(),name="new_annonce"),
+    path("other_annonce/",OtherAnnonceView.as_view(),name="other_annonce"),
     
     re_path(r"ajouter_voiture/?", CreateVoiture.as_view(), name="ajouter_voiture"),
     re_path(r"nouvelle_annonce/?",NewAnnonceView.as_view(),name="nouvelle_annonce"),
