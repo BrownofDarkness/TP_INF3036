@@ -69,7 +69,6 @@
         {% else %}
         <a href="{% url 'login' %}" class="book-a-table-btn scrollto d-none d-lg-flex">sign in</a>
       {% endif %}
-      
 
     </div>
   </header><!-- End Header -->
@@ -100,56 +99,22 @@
           <h2>Détails</h2>
           <p>Que voulez-vous savoir sur nos véhicules ?</p>
         </div>
-<div class="maclasse">
+        {% for annonce in annonces %}
+          <div class="maclasse">
+            <a href="{% url 'annonce_details' pk=annonce.id %}">
+              <div class="card">
+                <img src="{{annonce.voiture.main_image}}" alt="Denim Jeans" style="width:100%">
+                  <h2>{{annonce.titre}}</h2>
+                  <p class="price">{{annonce.prix}} XAF</p>
+                  <p class="price">{{annonce.voiture.prix_voiture}}  XAF</p>
+                
+              </div>
+            </a>
 
+          </div>
+      {% endfor %}
 
- 
-<div class="card">
-  <img src="{% static 'img/home_car.jpeg' %}" alt="Denim Jeans" style="width:100%">
-  <h2>Tailored Jeans</h2>
-  <p class="price">$19.99</p>
-  <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-  <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
-</div>
-
-<div class="card">
-  <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
-  <h2>Toyota</h2>
-  <p class="price">$19.99</p>
-  <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-  <button class="bouton"> <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
-</div>
-
-<div class="card">
-  <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
-  <h2>Corola Versus</h2>
-  <p class="price">$19.99</p>
-  <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-  <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
-</div>
-
-<div class="card">
-  <img src="{% static 'img/car.jpg' %}" alt="Denim Jeans" style="width:100%">
-  <h2>Corola Versus</h2>
-  <p class="price">$19.99</p>
-  <p>Some text about the jeans. Super slim and comfy lorem ipsum lorem jeansum. Lorem jeamsun denim lorem jeansum.</p>
-  <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
-</div>
-
-{% for annonce in annonces %}
-<div class="card">
-  <img src="{{annonce.voiture.main_image}}" alt="Denim Jeans" style="width:100%">
-  <h2>{{annonce.titre}}</h2>
-  <p class="price">{{annonce.prix}} Frcfa</p>
-  <p>{{annonce.description}}</p>
-  <button class="bouton">  <a href="{% url 'annonce_details' pk=1 %}">Details</a> </button>
-</div>
-{% endfor %}
-
-
-</div>
-
-        </div>
+    </div>
 
    
     </section><!-- End Testimonials Section -->
@@ -226,7 +191,7 @@
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/restaurantly-restaurant-template/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        Designed by <a href="https://bootstrapmade.com/">BrowofDarkness</a>
       </div>
     </div>
   </footer><!-- End Footer -->

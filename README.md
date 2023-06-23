@@ -8,7 +8,7 @@ Comment executer l'application :
 - Cree un environment virtuelle
   
   ```bash
-  python -m venv env
+  python -m venv .env
   ```
 
 - activer l'environment virtuelle
@@ -28,7 +28,7 @@ Comment executer l'application :
 - Vous devez installer les dependance avec
   
   ```bash
-  cd src/AnnoncesApp/
+  cd src/
   ```
 
   ```
@@ -63,6 +63,6 @@ Comment executer l'application :
     python manage.py runserver
     ```
 
-- L'application web serait disponible sur `http://localhost:8000`
+- L'application web sera disponible sur `http://localhost:8000`
 
 - La page admin sur `http://localhost:8000/admin`

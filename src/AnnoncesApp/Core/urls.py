@@ -12,6 +12,7 @@ urlpatterns = [
     path("annonces/<int:pk>/delete",DropAnnonceView.as_view(),name="delete_annonce"),
     path("voiture/<int:pk>/delete",DropVoitureView.as_view(),name="delete_voiture"),
     path("annonces/<int:pk>/update",MdAnnonceView.as_view(),name="update_annonce"),
+    path("remove_annonce/<int:pk>",RemoveAnnonceView.as_view(),name="remove_voiture"),
     path("voiture/<int:pk>/update",MdVoitureView.as_view(),name="update_voiture"),
     path("new_annonce/",NewAnnonceView2.as_view(),name="new_annonce"),
     path("other_annonce/",OtherAnnonceView.as_view(),name="other_annonce"),

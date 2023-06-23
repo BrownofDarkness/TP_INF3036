@@ -39,7 +39,7 @@ class RegisterUserView(View):
         if form.is_valid():
             user = form.save()
             login(request,user)
-            return redirect("home")
+            return redirect("dashboard_home")
         self.context['form'] = form
         
         return render(request, self.template_name,self.context)
@@ -67,7 +67,7 @@ class LoginView(View):
 
         if user is not None:
             login(request,user)
-            return redirect("home")
+            return redirect("dashboard_home")
         else:
             self.context['form'] = form
         
@@ -272,7 +272,7 @@ class HomeView(View):
     def get (self, request, *args, **kwargs):
         queries = list(Annonce.objects.filter(status = 'validé'))
         random.shuffle(queries)
-        queries = queries[:4]
+        queries = queries[:3]
         context = {
             'annonces': queries,
         }
@@ -283,33 +283,75 @@ class AnnoncesListView(View):
     
     def get (self, request, *args, **kwargs):
         queries = Annonce.objects.filter(status = 'validé')
-        annee = request.GET.get('annee',None)
-        prix =  request.GET.get('prix',None)
-        marque = request.GET.get('marque',None)
-        model = request.GET.get('model',None)
-        titre = request.GET.get('titre',None)
-        km = request.GET.get('km_parcouru',None)
+        select = request.GET.get('select',None)
+        
 
-        if titre:
-            queries = queries.filter(titre=titre)
-        if annee:
-            queries = queries.filter(voiture__annee=annee)
-        if prix:
-            queries = queries.filter(prix=prix)
-        if marque:
-            queries = queries.filter(voiture__model__marque__nom__icontains=marque)
-        if model:
-            queries = queries.filter(voiture__model__nom__icontains=model)
-        if km:
-            queries = queries.filter(voiture__km_parcouru=int(km))
+        if select == 'titre':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(titre__icontains=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'annee':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(voiture__annee=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'under_price':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(prix__lt=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'over_price':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(prix__gt=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'under_km':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(voiture__km_parcouru__lt=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'over_km':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(voiture__km_parcouru__gt=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'voiture_marque':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(voiture__model__marque__nom__iexact=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'voiture_model':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(voiture__model__nom__iexact=search)
+                else:
+                    queries = Annonce.objects.none()
+        if select == 'search':
+            search = self.request.GET.get('search')
+            if search:
+                if len(search) > 3:
+                    queries = queries.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
+                else:
+                    queries = Annonce.objects.none()
         
         
-        search = self.request.GET.get('search')
-        if search:
-            if len(search) > 3:
-                queries = Annonce.objects.filter(Q(titre__icontains=search) | Q(voiture__model__nom__icontains=search) | Q(voiture__model__marque__nom__icontains=search))
-            else:
-                queries = Annonce.objects.none()
+        
         context = {
             'annonces': queries,
         }
@@ -338,7 +380,16 @@ class ValidateAnnonceView(View):
         if annonce:
             annonce.status = "validé"
             annonce.save()
-            return redirect("dashboard")
+            return redirect("dashboard_home")
+        
+class RemoveAnnonceView(View):
+    
+    def get (self, request, pk, *args, **kwargs):
+        annonce = Annonce.objects.get(pk = pk)
+        if annonce:
+            annonce.status = "retiré"
+            annonce.save()
+            return redirect("dashboard_home")
     
 class DropAnnonceView(View):
     template_name = "core/delete_annonce.html"

@@ -94,6 +94,7 @@ h6 {
 }
 
 
+
 .back-to-top.active {
   visibility: visible;
   opacity: 1;
@@ -192,7 +193,6 @@ h6 {
 #header .logo img {
   max-height: 40px;
 }
-
 
 /*--------------------------------------------------------------
 # Book a table button Menu
@@ -417,7 +417,7 @@ h6 {
 #hero {
   width: 100%;
   height: 100vh;
-  background: url("../img/home_car.jpeg") top center;
+  background: url("../img/voiture.jpg") top center;
   background-size: cover;
   position: relative;
   padding: 0;
@@ -766,8 +766,7 @@ section {
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  background: white;
-  max-width: 500px;
+  max-width: 300px;
   float: left;
   margin: 1rem;
   text-align: center;
@@ -795,7 +794,7 @@ section {
 }
 
 .testimonials .testimonial-item h3 {
-  font-size: 10px;
+  font-size: 18px;
   font-weight: bold;
   margin: 10px 0 5px 45px;
   color: white;
@@ -1008,17 +1007,5 @@ section {
 }
 
 .maclasse a{
-  color: rgb(8, 6, 6);
-}
-.maclasse img{
-  height: 350px;
-  width: 100%;
-  border-radius: 20px;
-}
-.maclasse{
-  background: white;
-}
-.card{
-  width: 350px;
-  border-radius: 20px;
+  color: black;
 }

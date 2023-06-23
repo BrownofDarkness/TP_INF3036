@@ -32,10 +32,8 @@ class Modele(models.Model):
 
 class Voiture(models.Model):
 
-
     annee = models.IntegerField()
-    prix = models.DecimalField(max_digits=10, decimal_places=2,help_text="in XAF")
-    description = models.TextField()
+    prix_voiture = models.DecimalField(max_digits=10, decimal_places=2,help_text="in XAF")
     num_chassi = models.CharField(max_length=255)
     km_parcouru = models.IntegerField()
     model = models.ForeignKey(Modele, on_delete=models.CASCADE, related_name="voitures")
@@ -79,6 +77,11 @@ class Annonce(models.Model):
 
     def __str__(self):
         return self.titre
+    
+    def is_removed(self):
+        if self.status == "retiré":
+            return True
+        return False
 
 
 class PhotoVoiture(models.Model):

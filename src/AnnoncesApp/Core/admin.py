@@ -63,9 +63,9 @@ class AnnonceInline(admin.TabularInline):
 
 @admin.register(Voiture)
 class VoitureAdmin(admin.ModelAdmin):
-    list_display = ("id", "model", "prix", "annee","km", "description", "proprietaire")
-    search_fields = ("model__nom","model__marque__nom", "annee", "prix")
-    list_filter = ("annee", "model", "prix")
+    list_display = ("id", "model", "prix_voiture", "annee","km_parcouru", "proprietaire")
+    search_fields = ("model__nom","model__marque__nom", "annee", "prix_voiture")
+    list_filter = ("annee", "model", "prix_voiture")
 
     inlines= [PhotoVoitureInline,AnnonceInline]
 

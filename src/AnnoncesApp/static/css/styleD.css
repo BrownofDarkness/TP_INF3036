@@ -144,10 +144,11 @@ header{
 }
 .main {
     margin-left: 10rem;
-    margin-right: 10rem;
+    margin-right: 33rem;
     display: flex;
-    background: white;
-    box-shadow: 0 8px 20px 0 rgba(9, 116, 211, 0.315);
+    background: rgb(195, 199, 201);
+    border-radius: 1rem;
+    box-shadow: 0 8px 20px 0 rgba(14, 4, 156, 0.877);
 }
 
 .main2{

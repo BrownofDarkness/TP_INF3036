@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
     <link rel="stylesheet" href="{% static 'css/styleD.css' %}">
 
-    <title>Document</title>
+    <title>dashboard home</title>
 </head>
 <body>
 
@@ -59,7 +59,12 @@
                                         <td>{{annonce.voiture}}</td>
                                         <td><button><a href="{% url 'annonce_details' pk=annonce.id %}">Details</a></button></td>
                                         <td><button><a href="{% url 'update_annonce' pk=annonce.id %}">update</a></button></td>
-                                        <td><button><a href="">remove</a></button></td>
+                                        {% if annonce.is_removed %}
+                                        <td>removed</td>
+                                        {% else %}
+                                        <td><button><a href="{% url 'remove_voiture' pk=annonce.id %}">remove</a></button></td>
+                                        {% endif %}
+                                        
                                         <td><button><a href="{% url 'delete_annonce' pk=annonce.id %}">delete</a></button></td>
                                     </tr>
                                     {% endfor %}
