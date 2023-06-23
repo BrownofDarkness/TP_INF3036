@@ -194,6 +194,7 @@ class NewAnnonceView2(View):
             annonce = form.save(commit=False)
             annonce.voiture = voiture
             annonce.save()
+            return redirect('dashboard_home')
         self.context['form'] = self.form_class()
         
         return render(request,self.template_name,self.context)
